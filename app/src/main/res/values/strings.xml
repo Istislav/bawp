@@ -4,5 +4,9 @@
     <string name="loginHint">Username</string>
     <string name="passHint">Password</string>
     <string name="loginButtonName">Login</string>
+    <string name="createActText">Create Account</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="createActButtonTitle">Create Account</string>
 
 </resources>
