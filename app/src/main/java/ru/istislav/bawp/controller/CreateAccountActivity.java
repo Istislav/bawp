@@ -1,8 +1,10 @@
-package ru.istislav.bawp;
+package ru.istislav.bawp.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import ru.istislav.bawp.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
