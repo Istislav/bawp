@@ -17,6 +17,7 @@ import ru.istislav.bawp.model.Course;
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.ViewHolder> {
 //    private ArrayList<Course> courseArrayList;
     private CourseData courseData = new CourseData();
+    private OnItemClickListener itemClickListener;
 
     @NonNull
     @Override
@@ -44,15 +45,32 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 //        return courseArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView courseTitle;
         public ImageView courseImageView, authorImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            //registering our view for click receiving
+            itemView.setOnClickListener(this);
+
             courseTitle = itemView.findViewById(R.id.courceTitleId);
             courseImageView = itemView.findViewById(R.id.courseImageId);
             authorImageView = itemView.findViewById(R.id.authorImageId);
         }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onItemClick(v, getAdapterPosition());
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
