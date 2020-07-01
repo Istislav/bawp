@@ -12,7 +12,7 @@ public class CourseData {
 
         for (int i=0; i<courseNames.length; i++) {
             Course course =  new Course(courseNames[i],
-                    courseNames[i].replace("\\s+", " ").toLowerCase(), "happy_woman");
+                    courseNames[i].replaceAll("\\s+", "_").toLowerCase(), "happy_woman");
             list.add(course);
         }
         return list;
