@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">BAWP</string>
     <string name="action_settings">Settings</string>
+    <string name="show_as_grid">Show as grid</string>
+    <string name="show_as_list">Show as list</string>
     <string name="loginHint">Username</string>
     <string name="passHint">Password</string>
     <string name="loginButtonName">Login</string>
