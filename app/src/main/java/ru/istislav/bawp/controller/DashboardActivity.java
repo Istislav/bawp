@@ -19,7 +19,7 @@ public class DashboardActivity extends AppCompatActivity {
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private CourseListAdapter adapter;
     private Menu menu;
-    private boolean isListView = false;
+    private boolean isListView = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
