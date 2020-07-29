@@ -56,6 +56,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                 int bgColor = palette.getMutedColor(ContextCompat.getColor(context,
                         android.R.color.black));
                 holder.courseTitle.setBackgroundColor(bgColor);
+                holder.authorImageView.setBorderColor(bgColor);
             }
         });
     }
