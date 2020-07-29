@@ -1,5 +1,8 @@
 package ru.istislav.bawp.data;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -28,15 +34,29 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CourseListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CourseListAdapter.ViewHolder holder, int position) {
+
+        final Context context = holder.courseTitle.getContext();
+
         Course course = courseData.courseList().get(position);
         holder.courseTitle.setText(course.getCourseName());
-        Picasso.with(holder.courseTitle.getContext())
-                .load(course.getImageResourceId(holder.courseTitle.getContext()))
+        Picasso.with(context)
+                .load(course.getImageResourceId(context))
                 .into(holder.courseImageView);
-        Picasso.with(holder.courseTitle.getContext())
-                .load(course.getImageResourceId(holder.courseTitle.getContext()))
+        Picasso.with(context)
+                .load(course.getImageResourceId(context))
                 .into(holder.authorImageView);
+
+        Bitmap photo = BitmapFactory.decodeResource(context.getResources(),
+                    course.getImageResourceId(context));
+        Palette.from(photo).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(@Nullable Palette palette) {
+                int bgColor = palette.getMutedColor(ContextCompat.getColor(context,
+                        android.R.color.black));
+                holder.courseTitle.setBackgroundColor(bgColor);
+            }
+        });
     }
 
     @Override
