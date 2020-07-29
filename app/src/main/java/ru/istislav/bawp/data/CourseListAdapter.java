@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import ru.istislav.bawp.R;
 import ru.istislav.bawp.model.Course;
 
@@ -71,7 +72,8 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView courseTitle;
-        public ImageView courseImageView, authorImageView;
+        public ImageView courseImageView;
+        public CircleImageView authorImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
