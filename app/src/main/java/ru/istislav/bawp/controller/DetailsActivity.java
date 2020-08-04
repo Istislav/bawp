@@ -1,6 +1,7 @@
 package ru.istislav.bawp.controller;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -70,9 +71,28 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.detailsAddButton:
                 if(!isEditTextVisible) {
                     revealEditText(revealView);
+                } else {
+                    hideEditText(revealView);
                 }
                 break;
         }
+    }
+
+    private void hideEditText(final LinearLayout revealView) {
+        int cx = revealView.getRight() - 30;
+        int cy = revealView.getBottom() - 60;
+
+        int initialRadius = revealView.getWidth();
+        Animator anim = ViewAnimationUtils.createCircularReveal(revealView, cx, cy, initialRadius, 0f);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                revealView.setVisibility(View.INVISIBLE);
+            }
+        });
+        isEditTextVisible = false;
+        anim.start();
     }
 
     private void revealEditText(LinearLayout revealView) {
