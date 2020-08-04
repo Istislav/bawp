@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 import ru.istislav.bawp.R;
 import ru.istislav.bawp.data.CourseData;
@@ -33,6 +37,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private boolean isEditTextVisible = false;
     private FloatingActionButton button;
     private EditText commentEditText;
+    private ArrayList<String> comments;
+    private ArrayAdapter<String> commentsAdapter;
+    private ListView commentsListview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,17 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         
         setUpUI();
+        setUpAdapter();
         loadCourse();
+    }
+
+    private void setUpAdapter() {
+        commentsListview = (ListView) findViewById(R.id.detailsCommentsListView);
+        comments = new ArrayList<>();
+        comments.add("Hello!");
+        comments.add("How are you?");
+        commentsAdapter = new ArrayAdapter<String>(this, R.layout.comment_row, comments);
+        commentsListview.setAdapter(commentsAdapter);
     }
 
     private void loadCourse() {
@@ -81,13 +98,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
                     button.setImageResource(R.drawable.icn_morph);
                     Animatable animatable = (Animatable) button.getDrawable();
-                    animatable.start();;
+                    animatable.start();
                 } else {
                     hideEditText(revealView);
                     button.setImageResource(R.drawable.icn_morph_reverse);
                     inputManager.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
                     Animatable animatable = (Animatable) button.getDrawable();
-                    animatable.start();;
+                    animatable.start();
                 }
                 break;
         }
