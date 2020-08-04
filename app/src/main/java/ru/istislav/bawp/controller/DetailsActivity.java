@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout revealView;
     private boolean isEditTextVisible = false;
     private FloatingActionButton button;
+    private EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         button = (FloatingActionButton) findViewById(R.id.detailsAddButton);
         button.setOnClickListener(this); // Don't forget it!!!
+
+        commentEditText = findViewById(R.id.detailsComments);
     }
 
     @Override
@@ -72,12 +76,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.detailsAddButton:
                 if(!isEditTextVisible) {
                     revealEditText(revealView);
+                    commentEditText.requestFocus();
+                    inputManager.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT);
+
                     button.setImageResource(R.drawable.icn_morph);
                     Animatable animatable = (Animatable) button.getDrawable();
                     animatable.start();;
                 } else {
                     hideEditText(revealView);
                     button.setImageResource(R.drawable.icn_morph_reverse);
+                    inputManager.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
                     Animatable animatable = (Animatable) button.getDrawable();
                     animatable.start();;
                 }
