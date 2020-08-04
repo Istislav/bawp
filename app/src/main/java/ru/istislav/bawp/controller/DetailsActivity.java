@@ -3,6 +3,7 @@ package ru.istislav.bawp.controller;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -71,8 +72,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.detailsAddButton:
                 if(!isEditTextVisible) {
                     revealEditText(revealView);
+                    button.setImageResource(R.drawable.icn_morph);
+                    Animatable animatable = (Animatable) button.getDrawable();
+                    animatable.start();;
                 } else {
                     hideEditText(revealView);
+                    button.setImageResource(R.drawable.icn_morph_reverse);
+                    Animatable animatable = (Animatable) button.getDrawable();
+                    animatable.start();;
                 }
                 break;
         }
