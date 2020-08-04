@@ -3,7 +3,10 @@ package ru.istislav.bawp.controller;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.palette.graphics.Palette;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -51,6 +55,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         setUpUI();
         setUpAdapter();
         loadCourse();
+        getPhoto();
     }
 
     private void setUpAdapter() {
@@ -110,6 +115,22 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
         }
+    }
+
+    private void getPhoto() {
+        Bitmap photo = BitmapFactory.decodeResource(getResources(), course.getImageResourceId(this));
+        colorized(photo);
+    }
+
+    private void colorized(Bitmap photo) {
+        Palette palette = Palette.from(photo).generate();
+        applyPalette(palette);
+    }
+
+    private void applyPalette(Palette palette) {
+        getWindow().setBackgroundDrawable(new ColorDrawable(palette.getDarkMutedColor(0)));
+        courseTitle.setBackgroundColor(palette.getMutedColor(0));
+        revealView.setBackgroundColor(palette.getLightMutedColor(0));
     }
 
     private void addToComment(String comment) {
