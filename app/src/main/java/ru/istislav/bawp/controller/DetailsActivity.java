@@ -94,6 +94,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 if(!isEditTextVisible) {
                     revealEditText(revealView);
                     commentEditText.requestFocus();
+                    commentEditText.setText("");
                     inputManager.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT);
 
                     button.setImageResource(R.drawable.icn_morph);
@@ -102,12 +103,17 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 } else {
                     hideEditText(revealView);
                     button.setImageResource(R.drawable.icn_morph_reverse);
+                    addToComment(commentEditText.getText().toString().trim());
                     inputManager.hideSoftInputFromWindow(commentEditText.getWindowToken(), 0);
                     Animatable animatable = (Animatable) button.getDrawable();
                     animatable.start();
                 }
                 break;
         }
+    }
+
+    private void addToComment(String comment) {
+        comments.add(comment);
     }
 
     private void hideEditText(final LinearLayout revealView) {
